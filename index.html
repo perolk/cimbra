@@ -25,19 +25,34 @@
         .modal-transition { transition: opacity 0.3s ease-in-out, visibility 0.3s; }
         .modal-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         .modal-visible { opacity: 1; visibility: visible; pointer-events: auto; }
+        
+        /* Transición suave para el menú móvil */
+        .mobile-menu-transition { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease; }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-900 antialiased selection:bg-stone-900 selection:text-white">
 
-    <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-6 z-40 mix-blend-difference text-white">
-        <div class="text-lg font-bold tracking-[0.2em] z-50 lowercase">cimbra.</div>
-        <div class="hidden md:flex space-x-8 text-xs tracking-widest font-semibold z-50">
+    <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-6 z-50 mix-blend-difference text-white">
+        <div class="text-lg font-bold tracking-[0.2em] lowercase cursor-pointer">
+            <a href="#">cimbra.</a>
+        </div>
+        
+        <div class="hidden md:flex space-x-8 text-xs tracking-widest font-semibold">
             <a href="#estudio" class="hover:opacity-50 transition">ESTUDIO</a>
             <a href="#proyectos" class="hover:opacity-50 transition">PROYECTOS</a>
             <a href="#contacto" class="hover:opacity-50 transition">CONTACTO</a>
         </div>
-        <div class="md:hidden text-xs uppercase cursor-pointer z-50">Menu</div>
+
+        <button id="mobileMenuBtn" class="md:hidden text-xs uppercase font-bold tracking-widest focus:outline-none" onclick="toggleMobileMenu()">
+            Menu
+        </button>
     </nav>
+
+    <div id="mobileMenuOverlay" class="fixed inset-0 bg-stone-900 z-40 flex flex-col justify-center items-center opacity-0 pointer-events-none mobile-menu-transition translate-y-[-20px]">
+        <a href="#estudio" onclick="toggleMobileMenu()" class="text-3xl text-white mb-8 font-light tracking-widest hover:text-stone-400 transition">ESTUDIO</a>
+        <a href="#proyectos" onclick="toggleMobileMenu()" class="text-3xl text-white mb-8 font-light tracking-widest hover:text-stone-400 transition">PROYECTOS</a>
+        <a href="#contacto" onclick="toggleMobileMenu()" class="text-3xl text-white font-light tracking-widest hover:text-stone-400 transition">CONTACTO</a>
+    </div>
 
     <header class="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black">
         <div class="absolute inset-0 opacity-60">
@@ -177,6 +192,28 @@
     </div>
 
     <script>
+        // LOGICA DEL MENU MÓVIL
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenuOverlay');
+            const btn = document.getElementById('mobileMenuBtn');
+            
+            // Check si está oculto (basado en pointer-events para asegurar)
+            const isHidden = menu.classList.contains('pointer-events-none');
+
+            if (isHidden) {
+                // Abrir
+                menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+                menu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                btn.innerText = 'Cerrar';
+            } else {
+                // Cerrar
+                menu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+                btn.innerText = 'Menu';
+            }
+        }
+
+        // DATOS DE PROYECTOS
         const projectsData = {
             'reforma': {
                 title: "Reforma Integral Vivienda", category: "RESIDENCIAL / INTERIORISMO", year: "2024", location: "Chamberí, Madrid",
@@ -201,11 +238,8 @@
                 title: "Aseos Centro Comercial", category: "REFORMA INTERIOR / RETAIL", year: "2025", location: "Madrid Norte",
                 desc: "Renovación integral de los núcleos de aseos para transformar un espacio puramente funcional en una experiencia de confort. Se apuesta por la calidez mediante revestimientos de madera natural alistonada y piedra caliza beige, alejándose de la estética fría tradicional. La iluminación indirecta en foseados y bajo los espejos crea una atmósfera doméstica y relajada, elevando la percepción de calidad del centro comercial.",
                 images: [
-                    // 1. Principal: Lavabos modernos, luz calida, tonos oscuros/madera
                     "https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&auto=format&fit=crop&w=2669&q=80",
-                    // 2. Detalle: Tonos beige, piedra, muy limpio
                     "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80",
-                    // 3. Ambiente: Minimalismo calido
                     "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80"
                 ]
             },
