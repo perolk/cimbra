@@ -14,7 +14,6 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Ruido de fondo para textura */
         .bg-noise { position: relative; }
         .bg-noise::before {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -26,15 +25,287 @@
         .modal-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         .modal-visible { opacity: 1; visibility: visible; pointer-events: auto; }
         
-        /* Transición suave para el menú móvil */
         .mobile-menu-transition { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease; }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-900 antialiased selection:bg-stone-900 selection:text-white">
 
     <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-6 z-50 mix-blend-difference text-white">
-        <div class="text-lg font-bold tracking-[0.2em] lowercase cursor-pointer">
+        <div class="text-lg font-bold tracking-[0.2em] z-50 lowercase cursor-pointer">
             <a href="#">cimbra.</a>
+        </div>
+        <div class="hidden md:flex space-x-8 text-xs tracking-widest font-semibold z-50">
+            <a href="#estudio" class="hover:opacity-50 transition">ESTUDIO</a>
+            <a href="#proyectos" class="hover:opacity-50 transition">PROYECTOS</a>
+            <a href="#contacto" class="hover:opacity-50 transition">CONTACTO</a>
+        </div>
+        <button id="mobileMenuBtn" class="md:hidden text-xs uppercase font-bold tracking-widest focus:outline-none z-50" onclick="toggleMobileMenu()">
+            Menu
+        </button>
+    </nav>
+
+    <div id="mobileMenuOverlay" class="fixed inset-0 bg-stone-900 z-40 flex flex-col justify-center items-center opacity-0 pointer-events-none mobile-menu-transition translate-y-[-20px]">
+        <a href="#estudio" onclick="toggleMobileMenu()" class="text-3xl text-white mb-8 font-light tracking-widest hover:text-stone-400 transition">ESTUDIO</a>
+        <a href="#proyectos" onclick="toggleMobileMenu()" class="text-3xl text-white mb-8 font-light tracking-widest hover:text-stone-400 transition">PROYECTOS</a>
+        <a href="#contacto" onclick="toggleMobileMenu()" class="text-3xl text-white font-light tracking-widest hover:text-stone-400 transition">CONTACTO</a>
+    </div>
+
+    <header class="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+        <div class="absolute inset-0 opacity-60">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" alt="Background" class="w-full h-full object-cover">
+        </div>
+        
+        <div class="relative z-10 text-white px-4 flex flex-col items-center">
+            
+            <div class="text-xs md:text-sm font-bold tracking-[0.3em] text-stone-300 uppercase mb-6 opacity-100">
+                GALICIA <span class="mx-3 text-stone-500 font-light">|</span> MADRID
+            </div>
+            
+            <h1 class="text-5xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-none text-center lowercase flex flex-wrap justify-center gap-x-4 md:gap-x-8">
+                <span>cimbra</span>
+                <span>arquitectos</span>
+            </h1>
+
+            <p class="max-w-md mx-auto text-sm md:text-base font-light text-stone-300 leading-relaxed text-center mt-12 opacity-80">
+                Arquitectura retail que construye marca. <br>Del rigor constructivo a la estrategia comercial.
+            </p>
+        </div>
+        
+        <div class="absolute bottom-10 animate-bounce text-white text-xs tracking-widest">SCROLL ↓</div>
+    </header>
+
+    <section id="estudio" class="py-24 md:py-32 px-6 md:px-12 bg-noise bg-stone-100">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-4xl md:text-6xl font-bold mb-8 tracking-tight leading-tight">
+                    LA ESTRUCTURA <br>DE LA EXPERIENCIA.
+                </h2>
+                <div class="h-px w-24 bg-stone-900 mb-8"></div>
+                <p class="text-lg text-stone-600 leading-relaxed mb-6">
+                    CIMBRA nace de la fusión entre la artesanía del granito gallego y el ritmo frenético de Madrid. 
+                </p>
+                <p class="text-lg text-stone-600 leading-relaxed">
+                    Diseñamos espacios que guían al consumidor y narran historias.
+                </p>
+            </div>
+            <div class="relative h-[600px] w-full overflow-hidden bg-stone-300">
+                <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=2787&q=80" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700 ease-in-out" alt="Materialidad">
+            </div>
+        </div>
+    </section>
+
+    <section id="proyectos" class="py-24 px-6 md:px-12 bg-white">
+        <div class="flex justify-between items-end mb-16">
+            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter">OBRA.</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            
+            <div class="project-card group relative h-[600px] bg-stone-200 overflow-hidden cursor-pointer md:col-span-1" onclick="openModal('reforma')">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Reforma Vivienda">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition duration-500"></div>
+                <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition duration-500 transform group-hover:translate-y-0 translate-y-4">
+                    <h3 class="text-xl font-bold uppercase">Reforma Integral Vivienda</h3>
+                    <p class="text-xs tracking-widest mt-1">MADRID / RESIDENCIAL</p>
+                </div>
+            </div>
+
+            <div class="project-card group relative h-[600px] bg-stone-200 overflow-hidden cursor-pointer md:col-span-2" onclick="openModal('coruna')">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Showroom">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition duration-500"></div>
+                <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition duration-500 transform group-hover:translate-y-0 translate-y-4">
+                    <h3 class="text-xl font-bold uppercase">Textil Showroom</h3>
+                    <p class="text-xs tracking-widest mt-1">A CORUÑA / CORPORATIVO</p>
+                </div>
+            </div>
+
+            <div class="project-card group relative h-[400px] bg-stone-200 overflow-hidden cursor-pointer md:col-span-2" onclick="openModal('aseos')">
+                <img src="https://i.postimg.cc/25pzyhv7/Gemini-Generated-Image-v3csuqv3csuqv3cs.png" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Aseos Cálidos Centro Comercial">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition duration-500"></div>
+                <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition duration-500 transform group-hover:translate-y-0 translate-y-4">
+                    <h3 class="text-xl font-bold uppercase">Aseos Centro Comercial</h3>
+                    <p class="text-xs tracking-widest mt-1">MADRID / RETAIL EXPERIENCE</p>
+                </div>
+            </div>
+
+             <div class="project-card group relative h-[400px] bg-stone-200 overflow-hidden cursor-pointer md:col-span-1" onclick="openModal('bespoke')">
+               <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=2832&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Detalle">
+               <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition duration-500"></div>
+               <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition duration-500 transform group-hover:translate-y-0 translate-y-4">
+                   <h3 class="text-xl font-bold uppercase">Mobiliario Bespoke</h3>
+                   <p class="text-xs tracking-widest mt-1">DISEÑO / DETALLE</p>
+               </div>
+           </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 md:px-12 bg-stone-900 text-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-xs font-bold tracking-[0.3em] mb-12 text-stone-400 uppercase">Nuestras Capacidades</h2>
+            <div class="divide-y divide-stone-700">
+                <div class="py-8 flex justify-between items-center"><h3 class="text-2xl md:text-4xl font-light">Concept Design & 3D</h3><span class="text-stone-500">→</span></div>
+                <div class="py-8 flex justify-between items-center"><h3 class="text-2xl md:text-4xl font-light">Project Management</h3><span class="text-stone-500">→</span></div>
+                <div class="py-8 flex justify-between items-center"><h3 class="text-2xl md:text-4xl font-light">Roll-out & Expansión</h3><span class="text-stone-500">→</span></div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto" class="bg-white pt-24 pb-12 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
+            <h2 class="text-5xl md:text-8xl font-bold tracking-tighter leading-none">HABLEMOS.</h2>
+            <div class="flex flex-col justify-end items-start md:items-end">
+                <a href="mailto:cimbra@cimbraarquitectos.com" class="text-2xl border-b-2 border-black pb-2 hover:text-stone-600 transition mb-8">cimbra@cimbraarquitectos.com</a>
+                <p class="text-stone-500 text-right">Av. Asturias 64, Madrid</p>
+            </div>
+        </div>
+        <div class="border-t border-stone-200 pt-8 flex justify-between text-xs font-bold tracking-widest text-stone-400 uppercase">
+            <div>© 2025 Cimbra Arquitectos</div>
+        </div>
+    </footer>
+
+    <div id="projectModal" class="fixed inset-0 z-[100] flex items-center justify-center modal-hidden modal-transition">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="relative bg-stone-50 w-full h-full md:w-[90%] md:h-[90%] md:max-w-7xl flex flex-col md:flex-row overflow-hidden shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-6 right-6 z-50 text-black md:text-white hover:rotate-90 transition duration-300 text-4xl font-thin">&times;</button>
+            <div class="w-full md:w-2/3 h-1/2 md:h-full bg-black relative group">
+                <img id="modalImage" src="" class="w-full h-full object-cover transition-opacity duration-300" alt="Project Image">
+                <div class="absolute inset-0 flex justify-between items-center px-4 opacity-0 group-hover:opacity-100 transition duration-300">
+                    <button onclick="prevSlide()" class="bg-white/10 hover:bg-white/30 text-white p-4 rounded-full backdrop-blur-md">←</button>
+                    <button onclick="nextSlide()" class="bg-white/10 hover:bg-white/30 text-white p-4 rounded-full backdrop-blur-md">→</button>
+                </div>
+                <div class="absolute bottom-6 left-6 text-white text-xs tracking-widest bg-black/50 px-2 py-1">IMG <span id="currentSlideNum">1</span> / <span id="totalSlides">3</span></div>
+            </div>
+            <div class="w-full md:w-1/3 h-1/2 md:h-full p-8 md:p-16 overflow-y-auto bg-white flex flex-col justify-center">
+                <div class="mb-2 text-xs font-bold tracking-[0.3em] text-stone-400 uppercase" id="modalCategory">RETAIL</div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 leading-tight" id="modalTitle">TITULO PROYECTO</h2>
+                <div class="h-px w-12 bg-black mb-8"></div>
+                <p class="text-stone-600 leading-relaxed mb-8 text-sm md:text-base" id="modalDesc">Descripción...</p>
+                <div class="grid grid-cols-2 gap-4 text-xs tracking-widest text-stone-500 border-t border-stone-200 pt-6">
+                    <div><span class="block font-bold text-black mb-1">AÑO</span><span id="modalYear">2024</span></div>
+                    <div><span class="block font-bold text-black mb-1">UBICACIÓN</span><span id="modalLocation">Madrid</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenuOverlay');
+            const btn = document.getElementById('mobileMenuBtn');
+            const isHidden = menu.classList.contains('pointer-events-none');
+
+            if (isHidden) {
+                menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+                menu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                btn.innerText = 'Cerrar';
+            } else {
+                menu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+                btn.innerText = 'Menu';
+            }
+        }
+
+        const projectsData = {
+            'reforma': {
+                title: "Reforma Integral Vivienda", category: "RESIDENCIAL / INTERIORISMO", year: "2024", location: "Chamberí, Madrid",
+                desc: "Rehabilitación completa de una vivienda de 1920. El proyecto desnuda la estructura original, recuperando molduras y techos altos, mientras introduce una materialidad contemporánea basada en roble natural y piedra caliza. Se eliminaron tabiques innecesarios para conectar la luz de los balcones a la calle con las zonas interiores, creando un un refugio de calma en el centro de la ciudad.",
+                images: [
+                    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80",
+                    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80"
+                ]
+            },
+            'coruna': {
+                title: "Textil Showroom", category: "SEDE CORPORATIVA", year: "2023", location: "A Coruña, Galicia",
+                desc: "Espacio de trabajo y exposición con paleta monocromática y cortinas acústicas.",
+                images: [
+                    "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80",
+                    "https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80",
+                    "https://images.unsplash.com/photo-1504384308090-c54be3855091?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80"
+                ]
+            },
+            'aseos': {
+                title: "Aseos Centro Comercial", category: "REFORMA INTERIOR / RETAIL", year: "2025", location: "Madrid Norte",
+                // TEXTO ACTUALIZADO
+                desc: "Reforma integral de los núcleos de aseo en centro comercial. El proyecto apuesta por generar un ambiente cálido y acogedor mediante el uso de materiales naturales, texturas ricas y una iluminación cuidada, alejándose de la frialdad tradicional de estos espacios y elevando la experiencia del usuario.",
+                // IMÁGENES ACTUALIZADAS
+                images: [
+                    "https://i.postimg.cc/25pzyhv7/Gemini-Generated-Image-v3csuqv3csuqv3cs.png",
+                    "https://i.postimg.cc/QtyYNkKX/Gemini-Generated-Image-8uvigv8uvigv8uvi.png",
+                    "https://i.postimg.cc/3rP7n2fh/Gemini-Generated-Image-h2pjo9h2pjo9h2pj.png"
+                ]
+            },
+            'bespoke': {
+                title: "Mobiliario Bespoke", category: "DISEÑO INDUSTRIAL", year: "2023", location: "Varios",
+                desc: "Diseño de piezas a medida. Piedra natural, latón y sistemas de exposición.",
+                images: [
+                    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=2832&q=80",
+                    "https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&auto=format&fit=crop&w=2940&q=80",
+                    "https://images.unsplash.com/photo-1594825985830-4eac7332c966?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80"
+                ]
+            }
+        };
+
+        let currentImages = [];
+        let currentIndex = 0;
+        const modal = document.getElementById('projectModal');
+        const modalImg = document.getElementById('modalImage');
+
+        function openModal(projectId) {
+            const data = projectsData[projectId];
+            if(!data) return;
+
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalCategory').innerText = data.category;
+            document.getElementById('modalDesc').innerText = data.desc;
+            document.getElementById('modalYear').innerText = data.year;
+            document.getElementById('modalLocation').innerText = data.location;
+
+            currentImages = data.images;
+            currentIndex = 0;
+            updateImage();
+            document.getElementById('totalSlides').innerText = currentImages.length;
+
+            modal.classList.remove('modal-hidden');
+            modal.classList.add('modal-visible');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('modal-visible');
+            modal.classList.add('modal-hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateImage() {
+            modalImg.style.opacity = '0';
+            setTimeout(() => {
+                modalImg.src = currentImages[currentIndex];
+                modalImg.style.opacity = '1';
+            }, 200);
+            document.getElementById('currentSlideNum').innerText = currentIndex + 1;
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % currentImages.length;
+            updateImage();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+            updateImage();
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") closeModal();
+            if (modal.classList.contains('modal-visible')) {
+                if (event.key === "ArrowRight") nextSlide();
+                if (event.key === "ArrowLeft") prevSlide();
+            }
+        });
+    </script>
+</body>
+</html>            <a href="#">cimbra.</a>
         </div>
         
         <div class="hidden md:flex space-x-8 text-xs tracking-widest font-semibold">
