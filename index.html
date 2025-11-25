@@ -14,7 +14,6 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Ruido de fondo para textura */
         .bg-noise { position: relative; }
         .bg-noise::before {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -26,24 +25,21 @@
         .modal-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         .modal-visible { opacity: 1; visibility: visible; pointer-events: auto; }
         
-        /* Transición suave para el menú móvil */
         .mobile-menu-transition { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease; }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-900 antialiased selection:bg-stone-900 selection:text-white">
 
     <nav class="fixed top-0 w-full flex justify-between items-center px-6 md:px-12 py-6 z-50 mix-blend-difference text-white">
-        <div class="text-lg font-bold tracking-[0.2em] lowercase cursor-pointer">
+        <div class="text-lg font-bold tracking-[0.2em] z-50 lowercase cursor-pointer">
             <a href="#">cimbra.</a>
         </div>
-        
-        <div class="hidden md:flex space-x-8 text-xs tracking-widest font-semibold">
+        <div class="hidden md:flex space-x-8 text-xs tracking-widest font-semibold z-50">
             <a href="#estudio" class="hover:opacity-50 transition">ESTUDIO</a>
             <a href="#proyectos" class="hover:opacity-50 transition">PROYECTOS</a>
             <a href="#contacto" class="hover:opacity-50 transition">CONTACTO</a>
         </div>
-
-        <button id="mobileMenuBtn" class="md:hidden text-xs uppercase font-bold tracking-widest focus:outline-none" onclick="toggleMobileMenu()">
+        <button id="mobileMenuBtn" class="md:hidden text-xs uppercase font-bold tracking-widest focus:outline-none z-50" onclick="toggleMobileMenu()">
             Menu
         </button>
     </nav>
@@ -60,20 +56,21 @@
         </div>
         
         <div class="relative z-10 text-white px-4 flex flex-col items-center">
-            <div class="w-fit flex flex-col items-center">
-                <div class="w-full flex justify-between text-xs md:text-sm font-bold tracking-[0.6em] text-white uppercase mb-6 px-1 opacity-100">
-                    <span>GALICIA</span>
-                    <span class="opacity-50">-</span>
-                    <span>MADRID</span>
-                </div>
-                <h1 class="text-5xl md:text-8xl font-bold tracking-tighter leading-none text-center lowercase">
-                    cimbra<br class="md:hidden"> arquitectos
-                </h1>
+            
+            <div class="text-xs md:text-sm font-bold tracking-[0.3em] text-stone-300 uppercase mb-6 opacity-100">
+                GALICIA <span class="mx-3 text-stone-500 font-light">|</span> MADRID
             </div>
-            <p class="max-w-md mx-auto text-sm md:text-base font-light text-stone-300 leading-relaxed text-center mt-8 opacity-80">
+            
+            <h1 class="text-5xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-none text-center lowercase flex flex-wrap justify-center gap-x-4 md:gap-x-8">
+                <span>cimbra</span>
+                <span>arquitectos</span>
+            </h1>
+
+            <p class="max-w-md mx-auto text-sm md:text-base font-light text-stone-300 leading-relaxed text-center mt-12 opacity-80">
                 Arquitectura retail que construye marca. <br>Del rigor constructivo a la estrategia comercial.
             </p>
         </div>
+        
         <div class="absolute bottom-10 animate-bounce text-white text-xs tracking-widest">SCROLL ↓</div>
     </header>
 
@@ -123,7 +120,7 @@
             </div>
 
             <div class="project-card group relative h-[400px] bg-stone-200 overflow-hidden cursor-pointer md:col-span-2" onclick="openModal('aseos')">
-                <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&auto=format&fit=crop&w=2669&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Aseos Modernos Cálidos">
+                <img src="https://i.postimg.cc/25pzyhv7/Gemini-Generated-Image-v3csuqv3csuqv3cs.png" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Aseos Cálidos Centro Comercial">
                 <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition duration-500"></div>
                 <div class="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition duration-500 transform group-hover:translate-y-0 translate-y-4">
                     <h3 class="text-xl font-bold uppercase">Aseos Centro Comercial</h3>
@@ -192,32 +189,26 @@
     </div>
 
     <script>
-        // LOGICA DEL MENU MÓVIL
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenuOverlay');
             const btn = document.getElementById('mobileMenuBtn');
-            
-            // Check si está oculto (basado en pointer-events para asegurar)
             const isHidden = menu.classList.contains('pointer-events-none');
 
             if (isHidden) {
-                // Abrir
                 menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
                 menu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
                 btn.innerText = 'Cerrar';
             } else {
-                // Cerrar
                 menu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
                 menu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
                 btn.innerText = 'Menu';
             }
         }
 
-        // DATOS DE PROYECTOS
         const projectsData = {
             'reforma': {
                 title: "Reforma Integral Vivienda", category: "RESIDENCIAL / INTERIORISMO", year: "2024", location: "Chamberí, Madrid",
-                desc: "Rehabilitación completa de una vivienda de 1920. El proyecto desnuda la estructura original, recuperando molduras y techos altos, mientras introduce una materialidad contemporánea basada en roble natural y piedra caliza. Se eliminaron tabiques innecesarios para conectar la luz de los balcones a la calle con las zonas interiores, creando un refugio de calma en el centro de la ciudad.",
+                desc: "Rehabilitación completa de una vivienda de 1920. El proyecto desnuda la estructura original, recuperando molduras y techos altos, mientras introduce una materialidad contemporánea basada en roble natural y piedra caliza. Se eliminaron tabiques innecesarios para conectar la luz de los balcones a la calle con las zonas interiores, creando un un refugio de calma en el centro de la ciudad.",
                 images: [
                     "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80",
                     "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80",
@@ -233,14 +224,15 @@
                     "https://images.unsplash.com/photo-1504384308090-c54be3855091?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80"
                 ]
             },
-            // ASEOS CENTRO COMERCIAL (CALIDO / MINIMALISTA / MADERA)
             'aseos': {
                 title: "Aseos Centro Comercial", category: "REFORMA INTERIOR / RETAIL", year: "2025", location: "Madrid Norte",
-                desc: "Renovación integral de los núcleos de aseos para transformar un espacio puramente funcional en una experiencia de confort. Se apuesta por la calidez mediante revestimientos de madera natural alistonada y piedra caliza beige, alejándose de la estética fría tradicional. La iluminación indirecta en foseados y bajo los espejos crea una atmósfera doméstica y relajada, elevando la percepción de calidad del centro comercial.",
+                // TEXTO ACTUALIZADO
+                desc: "Reforma integral de los núcleos de aseo en centro comercial. El proyecto apuesta por generar un ambiente cálido y acogedor mediante el uso de materiales naturales, texturas ricas y una iluminación cuidada, alejándose de la frialdad tradicional de estos espacios y elevando la experiencia del usuario.",
+                // IMÁGENES ACTUALIZADAS
                 images: [
-                    "https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&auto=format&fit=crop&w=2669&q=80",
-                    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80",
-                    "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80"
+                    "https://i.postimg.cc/25pzyhv7/Gemini-Generated-Image-v3csuqv3csuqv3cs.png",
+                    "https://i.postimg.cc/QtyYNkKX/Gemini-Generated-Image-8uvigv8uvigv8uvi.png",
+                    "https://i.postimg.cc/3rP7n2fh/Gemini-Generated-Image-h2pjo9h2pjo9h2pj.png"
                 ]
             },
             'bespoke': {
